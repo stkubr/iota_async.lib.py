@@ -2,7 +2,7 @@
 PyOTA (Asynchronous)
 =====
 This is an **asynchronous fork** of the official Python library [https://github.com/iotaledger/iota.lib.py] for the IOTA Core.
-Uses standard Python 3.6 library `asyncio` and `requests-async` wrapper.
+Uses standard Python 3.6 library `asyncio` module and `requests-async` wrapper.
 
 Some tests are failing, because mock classes and tests are still in **sync** mode.
 
@@ -13,7 +13,7 @@ Usage
 =====
 
 ```python
-from iota import Address, ProposedTransaction, TryteString, Tag, Iota
+from iota_async import Address, ProposedTransaction, TryteString, Tag, Iota
 import asyncio
 
 async def send_transaction():
