@@ -1,18 +1,12 @@
-.. image:: https://travis-ci.org/iotaledger/iota.lib.py.svg?branch=master
-   :target: https://travis-ci.org/iotaledger/iota.lib.py
-
-.. image:: https://readthedocs.org/projects/pyota/badge/?version=latest
-   :target: http://pyota.readthedocs.io/en/latest/?badge=latest
-
 =====
-PyOTA (Async)
+PyOTA (Asynchronous)
 =====
 This is an **asynchronous fork** of the official Python library [https://github.com/iotaledger/iota.lib.py] for the IOTA Core.
 Uses standard Python 3.6 library `asyncio` and `requests-async` wrapper.
 
 Some tests are failing, because mock classes and tests are still in **sync** mode.
 
-Expect dragons, tell me if true: Discord **stkubr#1936**
+Expect dragons, tell me if seen: Discord **stkubr#1936**
 
 =====
 Usage
