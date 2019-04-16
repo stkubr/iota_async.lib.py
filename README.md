@@ -1,14 +1,16 @@
-=====
-PyOTA (Asynchronous)
+pyota-async
 =====
 This is an **asynchronous fork** of the official Python library [https://github.com/iotaledger/iota.lib.py] for the IOTA Core.
 Uses standard Python 3.6 library `asyncio` module and `requests-async` wrapper.
 
 Some tests are failing, because mock classes and tests are still in **sync** mode.
 
-Expect dragons, tell me if seen: Discord **stkubr#1936**
+Expect dragons, tell me if seen: IOTA Discord at **stkubr#1936** or on Twitter **@KubrakStan**
 
-=====
+If you like my work and want me to continue please feel free to buy me a beer by donating some Iotas on address:
+
+**EHNQJBGFAIUTJKPMSUCSDMIH9XTHANMJBVEZLFYURUXJUARTGKG9KDBHTCZHDKZZOGT9ENQEMHPOSLHPWXAELUPSDX**
+
 Usage
 =====
 
