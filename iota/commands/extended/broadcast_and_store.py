@@ -26,9 +26,9 @@ class BroadcastAndStoreCommand(FilterCommand):
     def get_response_filter(self):
         pass
 
-    def _execute(self, request):
-        BroadcastTransactionsCommand(self.adapter)(**request)
-        StoreTransactionsCommand(self.adapter)(**request)
+    async def _execute(self, request):
+        await BroadcastTransactionsCommand(self.adapter)(**request)
+        await StoreTransactionsCommand(self.adapter)(**request)
         return {
             'trytes': request['trytes'],
         }

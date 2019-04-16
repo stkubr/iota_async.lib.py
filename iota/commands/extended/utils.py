@@ -16,18 +16,18 @@ from iota.crypto.addresses import AddressGenerator
 from iota.crypto.types import Seed
 
 
-def find_transaction_objects(adapter, **kwargs):
+async def find_transaction_objects(adapter, **kwargs):
     # type: (BaseAdapter, **Iterable) -> List[Transaction]
     """
     Finds transactions matching the specified criteria, fetches the
     corresponding trytes and converts them into Transaction objects.
     """
-    ft_response = FindTransactionsCommand(adapter)(**kwargs)
+    ft_response = await FindTransactionsCommand(adapter)(**kwargs)
 
     hashes = ft_response['hashes']
 
     if hashes:
-        gt_response = GetTrytesCommand(adapter)(hashes=hashes)
+        gt_response = await GetTrytesCommand(adapter)(hashes=hashes)
 
         return list(map(
             Transaction.from_tryte_string,
@@ -37,7 +37,7 @@ def find_transaction_objects(adapter, **kwargs):
     return []
 
 
-def iter_used_addresses(
+async def iter_used_addresses(
         adapter,  # type: BaseAdapter
         seed,  # type: Seed
         start,  # type: int
@@ -56,7 +56,7 @@ def iter_used_addresses(
     ft_command = FindTransactionsCommand(adapter)
 
     for addy in AddressGenerator(seed, security_level).create_iterator(start):
-        ft_response = ft_command(addresses=[addy])
+        ft_response = await ft_command(addresses=[addy])
 
         if ft_response['hashes']:
             yield addy, ft_response['hashes']
@@ -67,7 +67,7 @@ def iter_used_addresses(
         ft_command.reset()
 
 
-def get_bundles_from_transaction_hashes(
+async def get_bundles_from_transaction_hashes(
         adapter,
         transaction_hashes,
         inclusion_states,
@@ -87,7 +87,7 @@ def get_bundles_from_transaction_hashes(
     tail_transaction_hashes = set()
     non_tail_bundle_hashes = set()
 
-    gt_response = GetTrytesCommand(adapter)(hashes=transaction_hashes)
+    gt_response = await GetTrytesCommand(adapter)(hashes=transaction_hashes)
     all_transactions = list(map(
         Transaction.from_tryte_string,
         gt_response['trytes'],
@@ -103,7 +103,7 @@ def get_bundles_from_transaction_hashes(
             non_tail_bundle_hashes.add(txn.bundle_hash)
 
     if non_tail_bundle_hashes:
-        for txn in find_transaction_objects(
+        for txn in await find_transaction_objects(
                 adapter=adapter,
                 bundles=list(non_tail_bundle_hashes),
         ):
@@ -121,7 +121,7 @@ def get_bundles_from_transaction_hashes(
 
     # Attach inclusion states, if requested.
     if inclusion_states:
-        gli_response = GetLatestInclusionCommand(adapter)(
+        gli_response = await GetLatestInclusionCommand(adapter)(
             hashes=list(tail_transaction_hashes),
         )
 
@@ -130,7 +130,7 @@ def get_bundles_from_transaction_hashes(
 
     # Find the bundles for each transaction.
     for txn in tail_transactions:
-        gb_response = GetBundlesCommand(adapter)(transaction=txn.hash)
+        gb_response = await GetBundlesCommand(adapter)(transaction=txn.hash)
         txn_bundles = gb_response['bundles']  # type: List[Bundle]
 
         if inclusion_states:

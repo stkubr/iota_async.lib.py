@@ -29,11 +29,11 @@ class IsReattachableCommand(FilterCommand):
     def get_response_filter(self):
         return IsReattachableResponseFilter()
 
-    def _execute(self, request):
+    async def _execute(self, request):
         addresses = request['addresses']  # type: List[Address]
 
         # fetch full transaction objects
-        transactions = find_transaction_objects(
+        transactions = await find_transaction_objects(
             adapter=self.adapter,
             addresses=addresses,
         )
@@ -53,7 +53,7 @@ class IsReattachableCommand(FilterCommand):
         }
 
         # Fetch inclusion states.
-        inclusion_states = GetLatestInclusionCommand(adapter=self.adapter)(
+        inclusion_states = await GetLatestInclusionCommand(adapter=self.adapter)(
             hashes=list(transaction_map.values()),
         )
         inclusion_states = inclusion_states['states']

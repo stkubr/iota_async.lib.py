@@ -281,7 +281,7 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/findtransactions
         """
-        return core.FindTransactionsCommand(self.adapter)(
+        return await core.FindTransactionsCommand(self.adapter)(
             bundles=bundles,
             addresses=addresses,
             tags=tags,

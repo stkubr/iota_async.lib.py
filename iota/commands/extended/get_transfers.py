@@ -34,7 +34,7 @@ class GetTransfersCommand(FilterCommand):
     def get_response_filter(self):
         pass
 
-    def _execute(self, request):
+    async def _execute(self, request):
         inclusion_states = request['inclusionStates']  # type: bool
         seed = request['seed']  # type: Seed
         start = request['start']  # type: int
@@ -45,11 +45,11 @@ class GetTransfersCommand(FilterCommand):
         if stop is None:
             my_hashes = list(chain(*(
                 hashes
-                for _, hashes in iter_used_addresses(self.adapter, seed, start)
+                for _, hashes in await iter_used_addresses(self.adapter, seed, start)
             )))
         else:
             ft_response = \
-                FindTransactionsCommand(self.adapter)(
+                await FindTransactionsCommand(self.adapter)(
                     addresses=
                     AddressGenerator(seed).get_addresses(start, stop - start),
                 )
@@ -58,7 +58,7 @@ class GetTransfersCommand(FilterCommand):
 
         return {
             'bundles':
-                get_bundles_from_transaction_hashes(
+                await get_bundles_from_transaction_hashes(
                     adapter=self.adapter,
                     transaction_hashes=my_hashes,
                     inclusion_states=inclusion_states,

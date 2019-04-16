@@ -33,10 +33,10 @@ class GetBundlesCommand(FilterCommand):
     def get_response_filter(self):
         pass
 
-    def _execute(self, request):
+    async def _execute(self, request):
         transaction_hash = request['transaction']  # type: TransactionHash
 
-        bundle = Bundle(self._traverse_bundle(transaction_hash))
+        bundle = Bundle(await self._traverse_bundle(transaction_hash))
         validator = BundleValidator(bundle)
 
         if not validator.is_valid():
@@ -58,7 +58,7 @@ class GetBundlesCommand(FilterCommand):
             'bundles': [bundle],
         }
 
-    def _traverse_bundle(self, txn_hash, target_bundle_hash=None):
+    async def _traverse_bundle(self, txn_hash, target_bundle_hash=None):
         # type: (TransactionHash, Optional[BundleHash]) -> List[Transaction]
         """
         Recursively traverse the Tangle, collecting transactions until
@@ -68,7 +68,7 @@ class GetBundlesCommand(FilterCommand):
         it ensures we don't collect transactions from replayed bundles.
         """
         trytes = (
-            GetTrytesCommand(self.adapter)(hashes=[txn_hash])['trytes']
+            await GetTrytesCommand(self.adapter)(hashes=[txn_hash])['trytes']
         )  # type: List[TryteString]
 
         if not trytes:
