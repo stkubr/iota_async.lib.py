@@ -8,11 +8,11 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type
 
-from iota import Address, Bundle, BundleHash, Fragment, Iota, Nonce, Tag, \
+from iota_async import Address, Bundle, BundleHash, Fragment, Iota, Nonce, Tag, \
   Transaction, TransactionHash
-from iota.adapter import MockAdapter
-from iota.commands.extended.replay_bundle import ReplayBundleCommand
-from iota.filters import Trytes
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.replay_bundle import ReplayBundleCommand
+from iota_async.filters import Trytes
 from test import mock
 
 
@@ -608,11 +608,11 @@ class ReplayBundleCommandTestCase(TestCase):
       return send_trytes_response
 
     with mock.patch(
-        'iota.commands.extended.get_bundles.GetBundlesCommand._execute',
+        'iota_async.commands.extended.get_bundles.GetBundlesCommand._execute',
         mock_get_bundles,
     ):
       with mock.patch(
-          'iota.commands.extended.send_trytes.SendTrytesCommand._execute',
+          'iota_async.commands.extended.send_trytes.SendTrytesCommand._execute',
           mock_send_trytes,
       ):
         response = self.command(

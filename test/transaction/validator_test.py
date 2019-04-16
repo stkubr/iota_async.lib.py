@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function, \
 
 from unittest import TestCase
 
-from iota import Address, Bundle, BundleHash, BundleValidator, TransactionTrytes
+from iota_async import Address, Bundle, BundleHash, BundleValidator, TransactionTrytes
 
 
 class BundleValidatorTestCase(TestCase):
@@ -15,7 +15,7 @@ class BundleValidatorTestCase(TestCase):
 
      var Bundle = require('./lib/crypto/bundle/bundle'),
          Converter = require('./lib/crypto/converter/converter'),
-         IOTA = require('./lib/iota'),
+         IOTA = require('./lib/iota_async'),
          Signing = require('./lib/crypto/signing/signing'),
          Utils = require('./lib/utils/utils');
 
@@ -39,7 +39,7 @@ class BundleValidatorTestCase(TestCase):
 
      // Assemble the bundle.
      var bundle = new Bundle();
-     var iota = new IOTA();
+     var iota_async = new IOTA();
 
      // Add spend transaction(s) to the bundle.
      // See ``lib/crypto/bundle/bundle.js:Bundle.prototype.addEntry``
@@ -56,7 +56,7 @@ class BundleValidatorTestCase(TestCase):
      for(var i=0; i<inputs.length; ++i) {
        bundle.addEntry(
          inputs[i].securityLevel,
-         iota.api._newAddress(seed, inputs[i].keyIndex, inputs[i].securityLevel, false),
+         iota_async.api._newAddress(seed, inputs[i].keyIndex, inputs[i].securityLevel, false),
          -inputs[i].balance,
          tag,
          timestamp

@@ -8,14 +8,14 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type
 
-from iota import Hash, TryteString
-from iota.adapter import MockAdapter
-from iota.crypto import FRAGMENT_LENGTH
-from iota.crypto.addresses import AddressGenerator
-from iota.crypto.types import Digest, PrivateKey, Seed
-from iota.filters import Trytes
-from iota.multisig import MultisigIota
-from iota.multisig.commands import GetDigestsCommand
+from iota_async import Hash, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.crypto import FRAGMENT_LENGTH
+from iota_async.crypto.addresses import AddressGenerator
+from iota_async.crypto.types import Digest, PrivateKey, Seed
+from iota_async.filters import Trytes
+from iota_async.multisig import MultisigIota
+from iota_async.multisig.commands import GetDigestsCommand
 from test import mock
 
 
@@ -52,7 +52,7 @@ class GetDigestsCommandTestCase(TestCase):
     mock_get_private_keys = mock.Mock(return_value={'keys': [self.key1]})
 
     with mock.patch(
-        'iota.multisig.commands.get_private_keys.GetPrivateKeysCommand._execute',
+        'iota_async.multisig.commands.get_private_keys.GetPrivateKeysCommand._execute',
         mock_get_private_keys
     ):
       # noinspection PyUnresolvedReferences
@@ -80,7 +80,7 @@ class GetDigestsCommandTestCase(TestCase):
       mock.Mock(return_value={'keys': [self.key1, self.key2]})
 
     with mock.patch(
-        'iota.multisig.commands.get_private_keys.GetPrivateKeysCommand._execute',
+        'iota_async.multisig.commands.get_private_keys.GetPrivateKeysCommand._execute',
         mock_get_private_keys
     ):
       # noinspection PyUnresolvedReferences

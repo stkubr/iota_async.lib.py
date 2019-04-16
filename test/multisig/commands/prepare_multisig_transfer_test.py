@@ -7,13 +7,13 @@ from unittest import TestCase
 import filters as f
 from filters.test import BaseFilterTestCase
 
-from iota import Address, Bundle, Fragment, ProposedTransaction
-from iota.adapter import MockAdapter
-from iota.commands.core import GetBalancesCommand
-from iota.crypto.types import Digest
-from iota.multisig import MultisigIota
-from iota.multisig.commands import PrepareMultisigTransferCommand
-from iota.multisig.types import MultisigAddress
+from iota_async import Address, Bundle, Fragment, ProposedTransaction
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core import GetBalancesCommand
+from iota_async.crypto.types import Digest
+from iota_async.multisig import MultisigIota
+from iota_async.multisig.commands import PrepareMultisigTransferCommand
+from iota_async.multisig.types import MultisigAddress
 
 
 class PrepareMultisigTransferRequestFilterTestCase(BaseFilterTestCase):
@@ -575,7 +575,7 @@ class PrepareMultisigTransferCommandTestCase(TestCase):
 
     #
     # This bundle looks almost identical to what you would expect from
-    # :py:meth:`iota.api.Iota.prepare_transfer`, except:
+    # :py:meth:`iota_async.api.Iota.prepare_transfer`, except:
     # - There are 4 inputs (to hold all of the signature fragments).
     # - The inputs are unsigned.
     #
@@ -688,7 +688,7 @@ class PrepareMultisigTransferCommandTestCase(TestCase):
     :py:meth:`MultisigIota.prepare_multisig_transfer` is specialized
     for generating bundles that require multisig inputs.  Any bundle
     that doesn't require multisig functionality should be generated
-    using :py:meth:`iota.api.Iota.prepare_transfer` instead.
+    using :py:meth:`iota_async.api.Iota.prepare_transfer` instead.
     """
     with self.assertRaises(ValueError):
       self.command(
@@ -740,7 +740,7 @@ class PrepareMultisigTransferCommandTestCase(TestCase):
     """
     The bundle has unspent inputs, but no change address was specified.
 
-    Unlike :py:meth:`iota.api.Iota.prepare_transfer` where all of the
+    Unlike :py:meth:`iota_async.api.Iota.prepare_transfer` where all of the
     inputs are owned by the same seed, creating a multisig transfer
     usually involves multiple people.
 

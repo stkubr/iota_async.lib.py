@@ -8,11 +8,11 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import text_type
 
-from iota import Address, Iota, Tag, BundleHash, TransactionHash, TryteString
-from iota.adapter import MockAdapter
-from iota.commands.core.find_transactions import FindTransactionsCommand, \
+from iota_async import Address, Iota, Tag, BundleHash, TransactionHash, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.find_transactions import FindTransactionsCommand, \
   FindTransactionsRequestFilter
-from iota.filters import Trytes
+from iota_async.filters import Trytes
 
 
 class FindTransactionsRequestFilterTestCase(BaseFilterTestCase):

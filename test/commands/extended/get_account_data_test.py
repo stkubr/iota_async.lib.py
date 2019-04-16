@@ -8,12 +8,12 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type
 
-from iota import Address, Bundle, Iota, TransactionHash
-from iota.adapter import MockAdapter
-from iota.commands.extended.get_account_data import GetAccountDataCommand, \
+from iota_async import Address, Bundle, Iota, TransactionHash
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.get_account_data import GetAccountDataCommand, \
   GetAccountDataRequestFilter
-from iota.crypto.types import Seed
-from iota.filters import Trytes
+from iota_async.crypto.types import Seed
+from iota_async.filters import Trytes
 from test import mock
 
 
@@ -380,7 +380,7 @@ class GetAccountDataCommandTestCase(TestCase):
       Tangle.
 
       References:
-        - :py:func:`iota.commands.extended.utils.iter_used_addresses`
+        - :py:func:`iota_async.commands.extended.utils.iter_used_addresses`
       """
       yield self.addy1, [self.hash1]
       yield self.addy2, [self.hash2]
@@ -393,15 +393,15 @@ class GetAccountDataCommandTestCase(TestCase):
     mock_get_bundles_from_transaction_hashes = mock.Mock(return_value=bundles)
 
     with mock.patch(
-        'iota.commands.extended.get_account_data.iter_used_addresses',
+        'iota_async.commands.extended.get_account_data.iter_used_addresses',
         mock_iter_used_addresses,
     ):
       with mock.patch(
-        'iota.commands.extended.get_account_data.get_bundles_from_transaction_hashes',
+        'iota_async.commands.extended.get_account_data.get_bundles_from_transaction_hashes',
         mock_get_bundles_from_transaction_hashes,
       ):
         with mock.patch(
-          'iota.commands.core.get_balances.GetBalancesCommand._execute',
+          'iota_async.commands.core.get_balances.GetBalancesCommand._execute',
           mock_get_balances,
         ):
           response = self.command(seed=Seed.random())
@@ -421,7 +421,7 @@ class GetAccountDataCommandTestCase(TestCase):
     Loading account data for a seed that hasn't been used yet.
     """
     with mock.patch(
-        'iota.commands.extended.get_account_data.iter_used_addresses',
+        'iota_async.commands.extended.get_account_data.iter_used_addresses',
         mock.Mock(return_value=[]),
     ):
       response = self.command(seed=Seed.random())

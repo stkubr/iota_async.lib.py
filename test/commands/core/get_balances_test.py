@@ -7,10 +7,10 @@ from unittest import TestCase
 import filters as f
 from filters.test import BaseFilterTestCase
 
-from iota import Address, Iota, TryteString
-from iota.adapter import MockAdapter
-from iota.commands.core.get_balances import GetBalancesCommand
-from iota.filters import Trytes
+from iota_async import Address, Iota, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.get_balances import GetBalancesCommand
+from iota_async.filters import Trytes
 
 
 class GetBalancesRequestFilterTestCase(BaseFilterTestCase):

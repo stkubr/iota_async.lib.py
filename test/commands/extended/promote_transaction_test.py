@@ -8,10 +8,10 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type
 
-from iota import Bundle, Iota, TransactionHash, TransactionTrytes, BadApiResponse
-from iota.adapter import MockAdapter
-from iota.commands.extended.promote_transaction import PromoteTransactionCommand
-from iota.filters import Trytes
+from iota_async import Bundle, Iota, TransactionHash, TransactionTrytes, BadApiResponse
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.promote_transaction import PromoteTransactionCommand
+from iota_async.filters import Trytes
 from test import mock
 
 
@@ -336,7 +336,7 @@ class PromoteTransactionCommandTestCase(TestCase):
     })
 
     with mock.patch(
-        'iota.commands.extended.send_transfer.SendTransferCommand._execute',
+        'iota_async.commands.extended.send_transfer.SendTransferCommand._execute',
         mock_send_transfer,
     ):
 

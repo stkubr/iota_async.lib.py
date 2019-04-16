@@ -6,9 +6,9 @@ from unittest import TestCase
 
 from six import text_type
 
-from iota import Iota, TransactionTrytes
-from iota.adapter import MockAdapter
-from iota.commands.extended.broadcast_and_store import BroadcastAndStoreCommand
+from iota_async import Iota, TransactionTrytes
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.broadcast_and_store import BroadcastAndStoreCommand
 
 
 class BroadcastAndStoreCommandTestCase(TestCase):

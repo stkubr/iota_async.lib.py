@@ -8,12 +8,12 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type
 
-from iota import Address, Bundle, Iota, Tag, Transaction, TryteString
-from iota.adapter import MockAdapter
-from iota.commands.extended.get_transfers import GetTransfersCommand, \
+from iota_async import Address, Bundle, Iota, Tag, Transaction, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.get_transfers import GetTransfersCommand, \
   GetTransfersRequestFilter
-from iota.crypto.types import Seed
-from iota.filters import Trytes
+from iota_async.crypto.types import Seed
+from iota_async.filters import Trytes
 from test import mock
 
 
@@ -350,7 +350,7 @@ class GetTransfersCommandTestCase(TestCase):
     Scanning the Tangle for all transfers.
     """
     # To speed up the test, we will mock the address generator.
-    # :py:class:`iota.crypto.addresses.AddressGenerator` already has
+    # :py:class:`iota_async.crypto.addresses.AddressGenerator` already has
     # its own test case, so this does not impact the stability of the
     # codebase.
     # noinspection PyUnusedLocal
@@ -423,11 +423,11 @@ class GetTransfersCommandTestCase(TestCase):
       })
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         create_generator,
     ):
       with mock.patch(
-          'iota.commands.extended.get_bundles.GetBundlesCommand._execute',
+          'iota_async.commands.extended.get_bundles.GetBundlesCommand._execute',
           mock_get_bundles,
       ):
         response = self.command(seed=Seed.random())
@@ -445,7 +445,7 @@ class GetTransfersCommandTestCase(TestCase):
     There are no transactions for the specified seed.
     """
     # To speed up the test, we will mock the address generator.
-    # :py:class:`iota.crypto.addresses.AddressGenerator` already has
+    # :py:class:`iota_async.crypto.addresses.AddressGenerator` already has
     # its own test case, so this does not impact the stability of the
     # codebase.
     # noinspection PyUnusedLocal
@@ -463,7 +463,7 @@ class GetTransfersCommandTestCase(TestCase):
     )
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         create_generator,
     ):
       response = self.command(seed=Seed.random())
@@ -541,11 +541,11 @@ class GetTransfersCommandTestCase(TestCase):
     })
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         create_generator,
     ):
       with mock.patch(
-          'iota.commands.extended.get_bundles.GetBundlesCommand._execute',
+          'iota_async.commands.extended.get_bundles.GetBundlesCommand._execute',
           mock_get_bundles,
       ):
         response = self.command(seed=Seed.random(), start=1)
@@ -619,11 +619,11 @@ class GetTransfersCommandTestCase(TestCase):
     })
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         create_generator,
     ):
       with mock.patch(
-          'iota.commands.extended.get_bundles.GetBundlesCommand._execute',
+          'iota_async.commands.extended.get_bundles.GetBundlesCommand._execute',
           mock_get_bundles,
       ):
         response = self.command(seed=Seed.random(), stop=1)
@@ -727,15 +727,15 @@ class GetTransfersCommandTestCase(TestCase):
     })
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         create_generator,
     ):
       with mock.patch(
-          'iota.commands.extended.get_bundles.GetBundlesCommand._execute',
+          'iota_async.commands.extended.get_bundles.GetBundlesCommand._execute',
           mock_get_bundles,
       ):
         with mock.patch(
-          'iota.commands.extended.get_latest_inclusion.GetLatestInclusionCommand._execute',
+          'iota_async.commands.extended.get_latest_inclusion.GetLatestInclusionCommand._execute',
           mock_get_latest_inclusion,
         ):
           response = self.command(

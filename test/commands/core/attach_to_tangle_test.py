@@ -6,10 +6,10 @@ from unittest import TestCase
 
 import filters as f
 from filters.test import BaseFilterTestCase
-from iota import Iota, TransactionHash, TransactionTrytes, TryteString
-from iota.adapter import MockAdapter
-from iota.commands.core.attach_to_tangle import AttachToTangleCommand
-from iota.filters import Trytes
+from iota_async import Iota, TransactionHash, TransactionTrytes, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.attach_to_tangle import AttachToTangleCommand
+from iota_async.filters import Trytes
 from six import binary_type, text_type
 
 

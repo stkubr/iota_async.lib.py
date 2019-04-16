@@ -8,13 +8,13 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type
 
-from iota import TryteString
-from iota.adapter import MockAdapter
-from iota.crypto.types import Digest
-from iota.filters import Trytes
-from iota.multisig import MultisigIota
-from iota.multisig.commands import CreateMultisigAddressCommand
-from iota.multisig.types import MultisigAddress
+from iota_async import TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.crypto.types import Digest
+from iota_async.filters import Trytes
+from iota_async.multisig import MultisigIota
+from iota_async.multisig.commands import CreateMultisigAddressCommand
+from iota_async.multisig.types import MultisigAddress
 
 
 class CreateMultisigAddressCommandTestCase(TestCase):

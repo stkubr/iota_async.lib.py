@@ -8,10 +8,10 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import text_type
 
-from iota import Iota, TransactionTrytes, TryteString
-from iota.adapter import MockAdapter
-from iota.commands.core.store_transactions import StoreTransactionsCommand
-from iota.filters import Trytes
+from iota_async import Iota, TransactionTrytes, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.store_transactions import StoreTransactionsCommand
+from iota_async.filters import Trytes
 
 
 class StoreTransactionsRequestFilterTestCase(BaseFilterTestCase):

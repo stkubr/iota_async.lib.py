@@ -7,10 +7,10 @@ from unittest import TestCase
 
 from six import with_metaclass
 
-from iota import InvalidCommand, StrictIota
-from iota.adapter import MockAdapter
-from iota.commands import CustomCommand
-from iota.commands.core.get_node_info import GetNodeInfoCommand
+from iota_async import InvalidCommand, StrictIota
+from iota_async.adapter import MockAdapter
+from iota_async.commands import CustomCommand
+from iota_async.commands.core.get_node_info import GetNodeInfoCommand
 
 
 class CustomCommandTestCase(TestCase):

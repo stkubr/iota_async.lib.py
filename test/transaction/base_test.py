@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function, \
 
 from unittest import TestCase
 
-from iota import Address, Bundle, BundleHash, Fragment, Hash, Nonce, Tag, \
+from iota_async import Address, Bundle, BundleHash, Fragment, Hash, Nonce, Tag, \
   Transaction, TransactionHash, TransactionTrytes
 
 

@@ -6,9 +6,9 @@ from unittest import TestCase
 
 import filters as f
 from filters.test import BaseFilterTestCase
-from iota import Iota
-from iota.adapter import MockAdapter
-from iota.commands.core.interrupt_attaching_to_tangle import \
+from iota_async import Iota
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.interrupt_attaching_to_tangle import \
   InterruptAttachingToTangleCommand
 
 

@@ -8,7 +8,7 @@ from warnings import catch_warnings, simplefilter as simple_filter
 
 from six import text_type
 
-from iota.codecs import AsciiTrytesCodec, TrytesDecodeError
+from iota_async.codecs import AsciiTrytesCodec, TrytesDecodeError
 
 
 # noinspection SpellCheckingInspection

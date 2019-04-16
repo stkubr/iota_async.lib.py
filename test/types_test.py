@@ -7,7 +7,7 @@ from warnings import catch_warnings, simplefilter as simple_filter
 
 from six import binary_type, text_type
 
-from iota import Address, AddressChecksum, AsciiTrytesCodec, Hash, Tag, \
+from iota_async import Address, AddressChecksum, AsciiTrytesCodec, Hash, Tag, \
   TryteString, TrytesDecodeError
 
 

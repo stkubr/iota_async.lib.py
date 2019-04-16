@@ -9,8 +9,8 @@ from unittest import TestCase
 
 from sha3 import keccak_384
 
-from iota.crypto.kerl import Kerl
-from iota.crypto.kerl.conv import convertToBytes, convertToTrits, \
+from iota_async.crypto.kerl import Kerl
+from iota_async.crypto.kerl.conv import convertToBytes, convertToTrits, \
   trits_to_trytes, trytes_to_trits
 
 

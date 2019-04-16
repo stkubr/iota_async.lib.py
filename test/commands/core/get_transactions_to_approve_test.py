@@ -6,11 +6,11 @@ from unittest import TestCase
 
 import filters as f
 from filters.test import BaseFilterTestCase
-from iota import Iota, TransactionHash
-from iota.adapter import MockAdapter
-from iota.commands.core.get_transactions_to_approve import \
+from iota_async import Iota, TransactionHash
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.get_transactions_to_approve import \
   GetTransactionsToApproveCommand
-from iota.filters import Trytes
+from iota_async.filters import Trytes
 
 
 class GetTransactionsToApproveRequestFilterTestCase(BaseFilterTestCase):

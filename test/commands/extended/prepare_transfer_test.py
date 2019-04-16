@@ -8,13 +8,13 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import binary_type, iterkeys
 
-from iota import Address, BadApiResponse, Iota, ProposedTransaction, Tag, \
+from iota_async import Address, BadApiResponse, Iota, ProposedTransaction, Tag, \
   TryteString, Transaction, TransactionHash
-from iota.adapter import MockAdapter
-from iota.commands.extended.prepare_transfer import PrepareTransferCommand
-from iota.crypto.addresses import AddressGenerator
-from iota.crypto.types import Seed
-from iota.filters import GeneratedAddress, Trytes
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.prepare_transfer import PrepareTransferCommand
+from iota_async.crypto.addresses import AddressGenerator
+from iota_async.crypto.types import Seed
+from iota_async.filters import GeneratedAddress, Trytes
 from test import mock
 
 
@@ -464,10 +464,10 @@ class PrepareTransferCommandTestCase(TestCase):
      // Init environment.  This only has to be done once.
      var Bundle = require('./lib/crypto/bundle/bundle'),
          Converter = require('./lib/crypto/converter/converter'),
-         IOTA = require('./lib/iota'),
+         IOTA = require('./lib/iota_async'),
          Signing = require('./lib/crypto/signing/signing'),
          Utils = require('./lib/utils/utils'),
-         iota = new IOTA();
+         iota_async = new IOTA();
 
      // Specify constant timestamp value to use for transactions.
      var timestamp = 1482938294;
@@ -505,7 +505,7 @@ class PrepareTransferCommandTestCase(TestCase):
      for(var i=0; i<inputs.length; ++i) {
        bundle.addEntry(
          inputs[i].securityLevel,
-         iota.api._newAddress(seed, inputs[i].keyIndex, inputs[i].securityLevel, false),
+         iota_async.api._newAddress(seed, inputs[i].keyIndex, inputs[i].securityLevel, false),
          -inputs[i].balance,
          tag,
          timestamp
@@ -568,7 +568,7 @@ class PrepareTransferCommandTestCase(TestCase):
       return self.timestamp
 
     with mock.patch(
-        target  = 'iota.transaction.creation.get_current_timestamp',
+        target  = 'iota_async.transaction.creation.get_current_timestamp',
         new     = get_current_timestamp,
     ):
       return super(PrepareTransferCommandTestCase, self).run(result)
@@ -857,8 +857,8 @@ class PrepareTransferCommandTestCase(TestCase):
     # command that ``prepareTransfer`` calls internally.
     #
     # References:
-    #   - :py:class:`iota.commands.extended.prepare_transfer.PrepareTransferCommand`
-    #   - :py:class:`iota.commands.extended.get_inputs.GetInputsCommand`
+    #   - :py:class:`iota_async.commands.extended.prepare_transfer.PrepareTransferCommand`
+    #   - :py:class:`iota_async.commands.extended.get_inputs.GetInputsCommand`
     mock_get_inputs =\
       mock.Mock(
         return_value = {
@@ -889,7 +889,7 @@ class PrepareTransferCommandTestCase(TestCase):
       )
 
     with mock.patch(
-        'iota.commands.extended.get_inputs.GetInputsCommand._execute',
+        'iota_async.commands.extended.get_inputs.GetInputsCommand._execute',
         mock_get_inputs,
     ):
       response =\
@@ -957,8 +957,8 @@ class PrepareTransferCommandTestCase(TestCase):
     # command that ``prepareTransfer`` calls internally.
     #
     # References:
-    #   - :py:class:`iota.commands.extended.prepare_transfer.PrepareTransferCommand`
-    #   - :py:class:`iota.commands.extended.get_inputs.GetInputsCommand`
+    #   - :py:class:`iota_async.commands.extended.prepare_transfer.PrepareTransferCommand`
+    #   - :py:class:`iota_async.commands.extended.get_inputs.GetInputsCommand`
     mock_get_inputs =\
       mock.Mock(
         return_value = {
@@ -979,7 +979,7 @@ class PrepareTransferCommandTestCase(TestCase):
       )
 
     with mock.patch(
-        'iota.commands.extended.get_inputs.GetInputsCommand._execute',
+        'iota_async.commands.extended.get_inputs.GetInputsCommand._execute',
         mock_get_inputs,
     ):
       response = self.command(
@@ -1045,12 +1045,12 @@ class PrepareTransferCommandTestCase(TestCase):
     #   command that ``prepareTransfer`` calls internally.
     #
     #   References:
-    #     - :py:class:`iota.commands.extended.prepare_transfer.PrepareTransferCommand`
-    #     - :py:class:`iota.commands.extended.get_inputs.GetInputsCommand`
+    #     - :py:class:`iota_async.commands.extended.prepare_transfer.PrepareTransferCommand`
+    #     - :py:class:`iota_async.commands.extended.get_inputs.GetInputsCommand`
     mock_get_inputs = mock.Mock(side_effect=BadApiResponse)
 
     with mock.patch(
-        'iota.commands.extended.get_inputs.GetInputsCommand._execute',
+        'iota_async.commands.extended.get_inputs.GetInputsCommand._execute',
         mock_get_inputs,
     ):
       with self.assertRaises(BadApiResponse):
@@ -1079,8 +1079,8 @@ class PrepareTransferCommandTestCase(TestCase):
     # command that ``prepareTransfer`` calls internally.
     #
     # References:
-    #   - :py:class:`iota.commands.extended.prepare_transfer.PrepareTransferCommand`
-    #   - :py:class:`iota.commands.extended.get_new_addresses.GetNewAddressesCommand`
+    #   - :py:class:`iota_async.commands.extended.prepare_transfer.PrepareTransferCommand`
+    #   - :py:class:`iota_async.commands.extended.get_new_addresses.GetNewAddressesCommand`
     mock_get_new_addresses_command =\
       mock.Mock(
         return_value = {
@@ -1107,7 +1107,7 @@ class PrepareTransferCommandTestCase(TestCase):
     })
 
     with mock.patch(
-        'iota.commands.extended.get_new_addresses.GetNewAddressesCommand._execute',
+        'iota_async.commands.extended.get_new_addresses.GetNewAddressesCommand._execute',
         mock_get_new_addresses_command,
     ):
       response = \
@@ -1315,7 +1315,7 @@ class PrepareTransferCommandTestCase(TestCase):
 
       self.command.reset()
       with mock.patch(
-        'iota.commands.core.GetBalancesCommand._execute',
+        'iota_async.commands.core.GetBalancesCommand._execute',
         mock_get_balances_execute,
       ):
         response = \
@@ -1399,7 +1399,7 @@ class PrepareTransferCommandTestCase(TestCase):
       self.command.reset()
 
       with mock.patch(
-        'iota.commands.core.GetBalancesCommand._execute',
+        'iota_async.commands.core.GetBalancesCommand._execute',
         mock_get_balances_execute,
       ):
         response = \

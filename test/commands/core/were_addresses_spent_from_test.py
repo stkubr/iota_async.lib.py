@@ -7,10 +7,10 @@ from unittest import TestCase
 import filters as f
 from filters.test import BaseFilterTestCase
 
-from iota import Address, Iota, TryteString
-from iota.adapter import MockAdapter
-from iota.commands.core.were_addresses_spent_from import WereAddressesSpentFromCommand
-from iota.filters import Trytes
+from iota_async import Address, Iota, TryteString
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.were_addresses_spent_from import WereAddressesSpentFromCommand
+from iota_async.filters import Trytes
 
 
 class WereAddressesSpentFromRequestFilterTestCase(BaseFilterTestCase):

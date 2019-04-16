@@ -8,9 +8,9 @@ import filters as f
 from filters.test import BaseFilterTestCase
 from six import text_type
 
-from iota import Address, Iota
-from iota.adapter import MockAdapter
-from iota.commands.extended.is_reattachable import IsReattachableCommand
+from iota_async import Address, Iota
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.is_reattachable import IsReattachableCommand
 
 
 class IsReattachableRequestFilterTestCase(BaseFilterTestCase):

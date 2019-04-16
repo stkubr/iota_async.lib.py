@@ -4,16 +4,16 @@ from __future__ import absolute_import, division, print_function, \
 
 from unittest import TestCase
 
-from iota import TryteString
-from iota.crypto import Curl
+from iota_async import TryteString
+from iota_async.crypto import Curl
 
 
 class CurlTestCase(TestCase):
   """
   This is the test case for CURL-P hash function used in IOTA.
 
-  Note that this test case covers :py:data:`iota.crypto.Curl`, **not**
-  :py:class:`iota.crypto.pycurl.Curl`.
+  Note that this test case covers :py:data:`iota_async.crypto.Curl`, **not**
+  :py:class:`iota_async.crypto.pycurl.Curl`.
 
   This is intentional; it enables us to run unit tests for the C
   extension with the same code.

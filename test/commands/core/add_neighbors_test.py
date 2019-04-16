@@ -6,10 +6,10 @@ from unittest import TestCase
 
 import filters as f
 from filters.test import BaseFilterTestCase
-from iota import Iota
-from iota.adapter import MockAdapter
-from iota.commands.core.add_neighbors import AddNeighborsCommand
-from iota.filters import NodeUri
+from iota_async import Iota
+from iota_async.adapter import MockAdapter
+from iota_async.commands.core.add_neighbors import AddNeighborsCommand
+from iota_async.filters import NodeUri
 
 
 class AddNeighborsRequestFilterTestCase(BaseFilterTestCase):

@@ -4,9 +4,9 @@ from __future__ import absolute_import, division, print_function, \
 
 from unittest import TestCase
 
-from iota import Address
-from iota.crypto.addresses import AddressGenerator
-from iota.crypto.types import Seed
+from iota_async import Address
+from iota_async.crypto.addresses import AddressGenerator
+from iota_async.crypto.types import Seed
 
 
 class AddressGeneratorTestCase(TestCase):

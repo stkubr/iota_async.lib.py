@@ -5,10 +5,10 @@ from __future__ import absolute_import, division, print_function, \
 import warnings
 from unittest import TestCase
 
-from iota import Hash, TryteString
-from iota.crypto import SeedWarning
-from iota.crypto.signing import KeyGenerator, SignatureFragmentGenerator
-from iota.crypto.types import PrivateKey
+from iota_async import Hash, TryteString
+from iota_async.crypto import SeedWarning
+from iota_async.crypto.signing import KeyGenerator, SignatureFragmentGenerator
+from iota_async.crypto.types import PrivateKey
 
 
 # noinspection SpellCheckingInspection
@@ -188,7 +188,7 @@ class KeyGeneratorTestCase(TestCase):
     Generating a PrivateKey from a seed longer than 1 hash.
 
     This catches a regression caused by
-    :py:meth:`iota.crypto.pycurl.Curl.squeeze` processing the wrong
+    :py:meth:`iota_async.crypto.pycurl.Curl.squeeze` processing the wrong
     number of trits.
 
     Note that seeds longer than 1 hash are not more secure.

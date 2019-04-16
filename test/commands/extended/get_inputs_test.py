@@ -7,12 +7,12 @@ from unittest import TestCase
 import filters as f
 from filters.test import BaseFilterTestCase
 
-from iota import Address, BadApiResponse, Iota, TransactionHash
-from iota.adapter import MockAdapter
-from iota.commands.extended.get_inputs import GetInputsCommand, GetInputsRequestFilter
-from iota.crypto.addresses import AddressGenerator
-from iota.crypto.types import Seed
-from iota.filters import Trytes
+from iota_async import Address, BadApiResponse, Iota, TransactionHash
+from iota_async.adapter import MockAdapter
+from iota_async.commands.extended.get_inputs import GetInputsCommand, GetInputsRequestFilter
+from iota_async.crypto.addresses import AddressGenerator
+from iota_async.crypto.types import Seed
+from iota_async.filters import Trytes
 from test import mock
 
 
@@ -461,7 +461,7 @@ class GetInputsCommandTestCase(TestCase):
     mock_address_generator = mock.Mock(return_value=[self.addy0, self.addy1])
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.get_addresses',
+        'iota_async.crypto.addresses.AddressGenerator.get_addresses',
         mock_address_generator,
     ):
       response = self.command(
@@ -501,7 +501,7 @@ class GetInputsCommandTestCase(TestCase):
     mock_address_generator = mock.Mock(return_value=[self.addy0, self.addy1])
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.get_addresses',
+        'iota_async.crypto.addresses.AddressGenerator.get_addresses',
         mock_address_generator,
     ):
       with self.assertRaises(BadApiResponse):
@@ -526,7 +526,7 @@ class GetInputsCommandTestCase(TestCase):
     mock_address_generator = mock.Mock(return_value=[self.addy0, self.addy1])
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.get_addresses',
+        'iota_async.crypto.addresses.AddressGenerator.get_addresses',
         mock_address_generator,
     ):
       response = self.command(
@@ -560,7 +560,7 @@ class GetInputsCommandTestCase(TestCase):
     mock_address_generator = mock.Mock(return_value=[self.addy0, self.addy1])
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.get_addresses',
+        'iota_async.crypto.addresses.AddressGenerator.get_addresses',
         mock_address_generator,
     ):
       response = self.command(
@@ -630,7 +630,7 @@ class GetInputsCommandTestCase(TestCase):
 
     # When ``stop`` is None, the command uses a generator internally.
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         mock_address_generator,
     ):
       response = self.command(
@@ -673,7 +673,7 @@ class GetInputsCommandTestCase(TestCase):
 
     # When ``stop`` is None, the command uses a generator internally.
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         mock_address_generator,
     ):
       with self.assertRaises(BadApiResponse):
@@ -727,7 +727,7 @@ class GetInputsCommandTestCase(TestCase):
 
     # When ``stop`` is None, the command uses a generator internally.
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         mock_address_generator,
     ):
       response = self.command(
@@ -790,7 +790,7 @@ class GetInputsCommandTestCase(TestCase):
 
     # When ``stop`` is None, the command uses a generator internally.
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         mock_address_generator,
     ):
       response = self.command(
@@ -850,7 +850,7 @@ class GetInputsCommandTestCase(TestCase):
 
     # When ``stop`` is None, the command uses a generator internally.
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         mock_address_generator,
     ):
       response = self.command(
@@ -889,7 +889,7 @@ class GetInputsCommandTestCase(TestCase):
     })
 
     with mock.patch(
-        'iota.crypto.addresses.AddressGenerator.create_iterator',
+        'iota_async.crypto.addresses.AddressGenerator.create_iterator',
         mock_address_generator,
     ):
       response = self.command(

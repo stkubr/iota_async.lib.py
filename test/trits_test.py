@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function, \
 
 from unittest import TestCase
 
-from iota import trits_from_int
+from iota_async import trits_from_int
 
 
 class TritsFromIntTestCase(TestCase):

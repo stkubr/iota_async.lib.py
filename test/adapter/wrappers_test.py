@@ -4,8 +4,8 @@ from __future__ import absolute_import, division, print_function, \
 
 from unittest import TestCase
 
-from iota.adapter import HttpAdapter, MockAdapter
-from iota.adapter.wrappers import RoutingWrapper
+from iota_async.adapter import HttpAdapter, MockAdapter
+from iota_async.adapter.wrappers import RoutingWrapper
 
 
 class RoutingWrapperTestCase(TestCase):

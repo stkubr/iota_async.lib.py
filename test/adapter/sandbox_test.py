@@ -8,9 +8,9 @@ from unittest import TestCase
 
 from six import text_type
 
-from iota import BadApiResponse
-from iota.adapter import API_VERSION
-from iota.adapter.sandbox import SandboxAdapter
+from iota_async import BadApiResponse
+from iota_async.adapter import API_VERSION
+from iota_async.adapter.sandbox import SandboxAdapter
 from test import mock
 from test.adapter_test import create_http_response
 

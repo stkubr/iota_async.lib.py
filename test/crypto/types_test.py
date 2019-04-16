@@ -7,9 +7,9 @@ from unittest import TestCase
 
 from six import text_type
 
-from iota import Hash, TryteString
-from iota.crypto import SeedWarning
-from iota.crypto.types import Digest, PrivateKey, Seed
+from iota_async import Hash, TryteString
+from iota_async.crypto import SeedWarning
+from iota_async.crypto.types import Digest, PrivateKey, Seed
 
 
 class SeedTestCase(TestCase):

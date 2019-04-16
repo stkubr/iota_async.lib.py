@@ -8,8 +8,8 @@ from typing import Text
 from unittest import TestCase
 
 import requests
-from iota import BadApiResponse, InvalidUri, TryteString
-from iota.adapter import API_VERSION, HttpAdapter, MockAdapter, resolve_adapter
+from iota_async import BadApiResponse, InvalidUri, TryteString
+from iota_async.adapter import API_VERSION, HttpAdapter, MockAdapter, resolve_adapter
 from six import BytesIO, text_type
 from test import mock
 
@@ -315,7 +315,7 @@ class HttpAdapterTestCase(TestCase):
       ),
     )
 
-  @mock.patch('iota.adapter.request')
+  @mock.patch('iota_async.adapter.request')
   def test_default_timeout(self, request_mock):
     # create dummy response
     request_mock.return_value = mock.Mock(text='{ "dummy": "payload"}', status_code=200)
@@ -329,7 +329,7 @@ class HttpAdapterTestCase(TestCase):
     _, kwargs = request_mock.call_args
     self.assertEqual(kwargs['timeout'], socket.getdefaulttimeout())
 
-  @mock.patch('iota.adapter.request')
+  @mock.patch('iota_async.adapter.request')
   def test_instance_attribute_timeout(self, request_mock):
     # create dummy response
     request_mock.return_value = mock.Mock(text='{ "dummy": "payload"}', status_code=200)
@@ -344,7 +344,7 @@ class HttpAdapterTestCase(TestCase):
     _, kwargs = request_mock.call_args
     self.assertEqual(kwargs['timeout'], 77)
 
-  @mock.patch('iota.adapter.request')
+  @mock.patch('iota_async.adapter.request')
   def test_argument_overriding_attribute_timeout(self, request_mock):
     # create dummy response
     request_mock.return_value = mock.Mock(text='{ "dummy": "payload"}', status_code=200)
@@ -359,7 +359,7 @@ class HttpAdapterTestCase(TestCase):
     _, kwargs = request_mock.call_args
     self.assertEqual(kwargs['timeout'], 88)
 
-  @mock.patch('iota.adapter.request')
+  @mock.patch('iota_async.adapter.request')
   def test_argument_overriding_init_timeout(self, request_mock):
     # create dummy response
     request_mock.return_value = mock.Mock(text='{ "dummy": "payload"}', status_code=200)
