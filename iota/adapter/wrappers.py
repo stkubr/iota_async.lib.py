@@ -34,7 +34,7 @@ class BaseWrapper(with_metaclass(ABCMeta, BaseAdapter)):
         return self.adapter.get_uri()
 
     @abstract_method
-    def send_request(self, payload, **kwargs):
+    async def send_request(self, payload, **kwargs):
         # type: (dict, dict) -> dict
         raise NotImplementedError(
             'Not implemented in {cls}.'.format(cls=type(self).__name__),

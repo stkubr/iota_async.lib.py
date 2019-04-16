@@ -125,7 +125,7 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         return command_class(self.adapter)
 
-    def create_command(self, command):
+    async def create_command(self, command):
         # type: (Text) -> CustomCommand
         """
         Creates a pre-configured CustomCommand instance.
@@ -136,7 +136,7 @@ class StrictIota(with_metaclass(ApiMeta)):
         :param command:
             The name of the command to create.
         """
-        return CustomCommand(self.adapter, command)
+        return await CustomCommand(self.adapter, command)
 
     @property
     def default_min_weight_magnitude(self):
@@ -147,7 +147,7 @@ class StrictIota(with_metaclass(ApiMeta)):
         """
         return 9 if self.testnet else 14
 
-    def add_neighbors(self, uris):
+    async def add_neighbors(self, uris):
         # type: (Iterable[Text]) -> dict
         """
         Add one or more neighbors to the node.  Lasts until the node is
@@ -166,9 +166,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/addneighors
         """
-        return core.AddNeighborsCommand(self.adapter)(uris=uris)
+        return await core.AddNeighborsCommand(self.adapter)(uris=uris)
 
-    def attach_to_tangle(
+    async def attach_to_tangle(
             self,
             trunk_transaction,  # type: TransactionHash
             branch_transaction,  # type: TransactionHash
@@ -194,14 +194,14 @@ class StrictIota(with_metaclass(ApiMeta)):
         if min_weight_magnitude is None:
             min_weight_magnitude = self.default_min_weight_magnitude
 
-        return core.AttachToTangleCommand(self.adapter)(
+        return await core.AttachToTangleCommand(self.adapter)(
             trunkTransaction=trunk_transaction,
             branchTransaction=branch_transaction,
             minWeightMagnitude=min_weight_magnitude,
             trytes=trytes,
         )
 
-    def broadcast_transactions(self, trytes):
+    async def broadcast_transactions(self, trytes):
         # type: (Iterable[TryteString]) -> dict
         """
         Broadcast a list of transactions to all neighbors.
@@ -213,9 +213,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/broadcasttransactions
         """
-        return core.BroadcastTransactionsCommand(self.adapter)(trytes=trytes)
+        return await core.BroadcastTransactionsCommand(self.adapter)(trytes=trytes)
 
-    def check_consistency(self, tails):
+    async def check_consistency(self, tails):
         # type: (Iterable[TransactionHash]) -> dict
         """
         Used to ensure tail resolves to a consistent ledger which is
@@ -242,11 +242,11 @@ class StrictIota(with_metaclass(ApiMeta)):
                         ``False``.
                 }
         """
-        return core.CheckConsistencyCommand(self.adapter)(
+        return await core.CheckConsistencyCommand(self.adapter)(
             tails=tails,
         )
 
-    def find_transactions(
+    async def find_transactions(
             self,
             bundles=None,  # type: Optional[Iterable[BundleHash]]
             addresses=None,  # type: Optional[Iterable[Address]]
@@ -288,7 +288,7 @@ class StrictIota(with_metaclass(ApiMeta)):
             approvees=approvees,
         )
 
-    def get_balances(self, addresses, threshold=100):
+    async def get_balances(self, addresses, threshold=100):
         # type: (Iterable[Address], int) -> dict
         """
         Similar to :py:meth:`get_inclusion_states`. Returns the
@@ -310,12 +310,12 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/getbalances
         """
-        return core.GetBalancesCommand(self.adapter)(
+        return await core.GetBalancesCommand(self.adapter)(
             addresses=addresses,
             threshold=threshold,
         )
 
-    def get_inclusion_states(self, transactions, tips):
+    async def get_inclusion_states(self, transactions, tips):
         # type: (Iterable[TransactionHash], Iterable[TransactionHash]) -> dict
         """
         Get the inclusion states of a set of transactions. This is for
@@ -335,12 +335,12 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/getinclusionstates
         """
-        return core.GetInclusionStatesCommand(self.adapter)(
+        return await core.GetInclusionStatesCommand(self.adapter)(
             transactions=transactions,
             tips=tips,
         )
 
-    def get_neighbors(self):
+    async def get_neighbors(self):
         # type: () -> dict
         """
         Returns the set of neighbors the node is connected with, as well
@@ -352,10 +352,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/getneighborsactivity
         """
-        return core.GetNeighborsCommand(self.adapter)()
+        return await core.GetNeighborsCommand(self.adapter)()
 
-    def get_node_info(self):
-        # type: () -> dict
+    async def get_node_info(self):
         """
         Returns information about the node.
 
@@ -363,9 +362,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/getnodeinfo
         """
-        return core.GetNodeInfoCommand(self.adapter)()
+        return await core.GetNodeInfoCommand(self.adapter)()
 
-    def get_tips(self):
+    async def get_tips(self):
         # type: () -> dict
         """
         Returns the list of tips (transactions which have no other
@@ -376,9 +375,9 @@ class StrictIota(with_metaclass(ApiMeta)):
         - https://iota.readme.io/docs/gettips
         - https://iota.readme.io/docs/glossary#iota-terms
         """
-        return core.GetTipsCommand(self.adapter)()
+        return await core.GetTipsCommand(self.adapter)()
 
-    def get_transactions_to_approve(self, depth):
+    async def get_transactions_to_approve(self, depth):
         # type: (int) -> dict
         """
         Tip selection which returns ``trunkTransaction`` and
@@ -396,9 +395,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/gettransactionstoapprove
         """
-        return core.GetTransactionsToApproveCommand(self.adapter)(depth=depth)
+        return await core.GetTransactionsToApproveCommand(self.adapter)(depth=depth)
 
-    def get_trytes(self, hashes):
+    async def get_trytes(self, hashes):
         # type: (Iterable[TransactionHash]) -> dict
         """
         Returns the raw transaction data (trytes) of one or more
@@ -408,9 +407,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/gettrytes
         """
-        return core.GetTrytesCommand(self.adapter)(hashes=hashes)
+        return await core.GetTrytesCommand(self.adapter)(hashes=hashes)
 
-    def interrupt_attaching_to_tangle(self):
+    async def interrupt_attaching_to_tangle(self):
         # type: () -> dict
         """
         Interrupts and completely aborts the :py:meth:`attach_to_tangle`
@@ -420,9 +419,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/interruptattachingtotangle
         """
-        return core.InterruptAttachingToTangleCommand(self.adapter)()
+        return await core.InterruptAttachingToTangleCommand(self.adapter)()
 
-    def remove_neighbors(self, uris):
+    async def remove_neighbors(self, uris):
         # type: (Iterable[Text]) -> dict
         """
         Removes one or more neighbors from the node.  Lasts until the
@@ -436,9 +435,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/removeneighors
         """
-        return core.RemoveNeighborsCommand(self.adapter)(uris=uris)
+        return await core.RemoveNeighborsCommand(self.adapter)(uris=uris)
 
-    def store_transactions(self, trytes):
+    async def store_transactions(self, trytes):
         # type: (Iterable[TryteString]) -> dict
         """
         Store transactions into local storage.
@@ -450,9 +449,9 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/storetransactions
         """
-        return core.StoreTransactionsCommand(self.adapter)(trytes=trytes)
+        return await core.StoreTransactionsCommand(self.adapter)(trytes=trytes)
 
-    def were_addresses_spent_from(self, addresses):
+    async def were_addresses_spent_from(self, addresses):
         # type: (Iterable[Address]) -> dict
         """
         Check if a list of addresses was ever spent from, in the current
@@ -465,7 +464,7 @@ class StrictIota(with_metaclass(ApiMeta)):
 
         - https://iota.readme.io/docs/wereaddressesspentfrom
         """
-        return core.WereAddressesSpentFromCommand(self.adapter)(
+        return await core.WereAddressesSpentFromCommand(self.adapter)(
             addresses=addresses,
         )
 
@@ -497,7 +496,7 @@ class Iota(StrictIota):
         self.seed = Seed(seed) if seed else Seed.random()
         self.helpers = Helpers(self)
 
-    def broadcast_and_store(self, trytes):
+    async def broadcast_and_store(self, trytes):
         # type: (Iterable[TransactionTrytes]) -> dict
         """
         Broadcasts and stores a set of transaction trytes.
@@ -515,9 +514,9 @@ class Iota(StrictIota):
 
         - https://github.com/iotaledger/wiki/blob/master/api-proposal.md#broadcastandstore
         """
-        return extended.BroadcastAndStoreCommand(self.adapter)(trytes=trytes)
+        return await extended.BroadcastAndStoreCommand(self.adapter)(trytes=trytes)
 
-    def get_account_data(self, start=0, stop=None, inclusion_states=False, security_level=None):
+    async def get_account_data(self, start=0, stop=None, inclusion_states=False, security_level=None):
         # type: (int, Optional[int], bool, Optional[int]) -> dict
         """
         More comprehensive version of :py:meth:`get_transfers` that
@@ -572,7 +571,7 @@ class Iota(StrictIota):
                         account.
                 }
         """
-        return extended.GetAccountDataCommand(self.adapter)(
+        return await extended.GetAccountDataCommand(self.adapter)(
             seed=self.seed,
             start=start,
             stop=stop,
@@ -580,7 +579,7 @@ class Iota(StrictIota):
             security_level=security_level
         )
 
-    def get_bundles(self, transaction):
+    async def get_bundles(self, transaction):
         # type: (TransactionHash) -> dict
         """
         Returns the bundle(s) associated with the specified transaction
@@ -606,9 +605,9 @@ class Iota(StrictIota):
 
         - https://github.com/iotaledger/wiki/blob/master/api-proposal.md#getbundle
         """
-        return extended.GetBundlesCommand(self.adapter)(transaction=transaction)
+        return await extended.GetBundlesCommand(self.adapter)(transaction=transaction)
 
-    def get_inputs(
+    async def get_inputs(
             self,
             start=0,
             stop=None,
@@ -699,7 +698,7 @@ class Iota(StrictIota):
 
         - https://github.com/iotaledger/wiki/blob/master/api-proposal.md#getinputs
         """
-        return extended.GetInputsCommand(self.adapter)(
+        return await extended.GetInputsCommand(self.adapter)(
             seed=self.seed,
             start=start,
             stop=stop,
@@ -707,7 +706,7 @@ class Iota(StrictIota):
             securityLevel=security_level
         )
 
-    def get_latest_inclusion(self, hashes):
+    async def get_latest_inclusion(self, hashes):
         # type: (Iterable[TransactionHash]) -> Dict[TransactionHash, bool]
         """
         Fetches the inclusion state for the specified transaction
@@ -727,9 +726,9 @@ class Iota(StrictIota):
                         ``hashes``.
                 }
         """
-        return extended.GetLatestInclusionCommand(self.adapter)(hashes=hashes)
+        return await extended.GetLatestInclusionCommand(self.adapter)(hashes=hashes)
 
-    def get_new_addresses(
+    async def get_new_addresses(
             self,
             index=0,
             count=1,
@@ -780,7 +779,7 @@ class Iota(StrictIota):
 
         - https://github.com/iotaledger/wiki/blob/master/api-proposal.md#getnewaddress
         """
-        return extended.GetNewAddressesCommand(self.adapter)(
+        return await extended.GetNewAddressesCommand(self.adapter)(
             count=count,
             index=index,
             securityLevel=security_level,
@@ -788,7 +787,7 @@ class Iota(StrictIota):
             seed=self.seed,
         )
 
-    def get_transfers(self, start=0, stop=None, inclusion_states=False):
+    async def get_transfers(self, start=0, stop=None, inclusion_states=False):
         # type: (int, Optional[int], bool) -> dict
         """
         Returns all transfers associated with the seed.
@@ -828,14 +827,14 @@ class Iota(StrictIota):
 
         - https://github.com/iotaledger/wiki/blob/master/api-proposal.md#gettransfers
         """
-        return extended.GetTransfersCommand(self.adapter)(
+        return await extended.GetTransfersCommand(self.adapter)(
             seed=self.seed,
             start=start,
             stop=stop,
             inclusionStates=inclusion_states,
         )
 
-    def prepare_transfer(
+    async def prepare_transfer(
             self,
             transfers,  # type: Iterable[ProposedTransaction]
             inputs=None,  # type: Optional[Iterable[Address]]
@@ -889,7 +888,7 @@ class Iota(StrictIota):
 
         - https://github.com/iotaledger/wiki/blob/master/api-proposal.md#preparetransfers
         """
-        return extended.PrepareTransferCommand(self.adapter)(
+        return await extended.PrepareTransferCommand(self.adapter)(
             seed=self.seed,
             transfers=transfers,
             inputs=inputs,
@@ -897,7 +896,7 @@ class Iota(StrictIota):
             securityLevel=security_level,
         )
 
-    def promote_transaction(
+    async def promote_transaction(
             self,
             transaction,
             depth=3,
@@ -918,13 +917,13 @@ class Iota(StrictIota):
         if min_weight_magnitude is None:
             min_weight_magnitude = self.default_min_weight_magnitude
 
-        return extended.PromoteTransactionCommand(self.adapter)(
+        return await extended.PromoteTransactionCommand(self.adapter)(
             transaction=transaction,
             depth=depth,
             minWeightMagnitude=min_weight_magnitude,
         )
 
-    def replay_bundle(
+    async def replay_bundle(
             self,
             transaction,
             depth=3,
@@ -949,7 +948,7 @@ class Iota(StrictIota):
 
             If not provided, a default value will be used.
 
-        :return:
+        :return await:
             Dict with the following structure::
 
                 {
@@ -964,13 +963,13 @@ class Iota(StrictIota):
         if min_weight_magnitude is None:
             min_weight_magnitude = self.default_min_weight_magnitude
 
-        return extended.ReplayBundleCommand(self.adapter)(
+        return await extended.ReplayBundleCommand(self.adapter)(
             transaction=transaction,
             depth=depth,
             minWeightMagnitude=min_weight_magnitude,
         )
 
-    def send_transfer(
+    async def send_transfer(
             self,
             transfers,  # type: Iterable[ProposedTransaction]
             depth=3,  # type: int
@@ -1033,7 +1032,7 @@ class Iota(StrictIota):
         if min_weight_magnitude is None:
             min_weight_magnitude = self.default_min_weight_magnitude
 
-        return extended.SendTransferCommand(self.adapter)(
+        return await extended.SendTransferCommand(self.adapter)(
             seed=self.seed,
             depth=depth,
             transfers=transfers,
@@ -1043,7 +1042,7 @@ class Iota(StrictIota):
             securityLevel=security_level,
         )
 
-    def send_trytes(self, trytes, depth=3, min_weight_magnitude=None):
+    async def send_trytes(self, trytes, depth=3, min_weight_magnitude=None):
         # type: (Iterable[TransactionTrytes], int, Optional[int]) -> dict
         """
         Attaches transaction trytes to the Tangle, then broadcasts and
@@ -1077,13 +1076,13 @@ class Iota(StrictIota):
         if min_weight_magnitude is None:
             min_weight_magnitude = self.default_min_weight_magnitude
 
-        return extended.SendTrytesCommand(self.adapter)(
+        return await extended.SendTrytesCommand(self.adapter)(
             trytes=trytes,
             depth=depth,
             minWeightMagnitude=min_weight_magnitude,
         )
 
-    def is_reattachable(self, addresses):
+    async def is_reattachable(self, addresses):
         # type: (Iterable[Address]) -> dict
         """
         This API function helps you to determine whether you should
@@ -1109,6 +1108,6 @@ class Iota(StrictIota):
                     Always a list, even if only one address was queried.
                 }
         """
-        return extended.IsReattachableCommand(self.adapter)(
+        return await extended.IsReattachableCommand(self.adapter)(
             addresses=addresses
         )

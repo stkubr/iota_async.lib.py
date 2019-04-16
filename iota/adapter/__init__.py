@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
 import json
+import requests_async
 from abc import ABCMeta, abstractmethod as abstract_method
 from collections import deque
 from inspect import isabstract as is_abstract
@@ -10,7 +11,8 @@ from logging import DEBUG, Logger
 from socket import getdefaulttimeout as get_default_timeout
 from typing import Container, Dict, List, Optional, Text, Tuple, Union
 
-from requests import Response, auth, codes, request
+from requests import Response, auth, codes
+
 from six import PY2, binary_type, iteritems, moves as compat, text_type, \
     with_metaclass
 
@@ -168,7 +170,7 @@ class BaseAdapter(with_metaclass(AdapterMeta)):
         )
 
     @abstract_method
-    def send_request(self, payload, **kwargs):
+    async def send_request(self, payload, **kwargs):
         # type: (dict, dict) -> dict
         """
         Sends an API request to the node.
@@ -291,13 +293,13 @@ class HttpAdapter(BaseAdapter):
         # type: () -> Text
         return self.uri.geturl()
 
-    def send_request(self, payload, **kwargs):
+    async def send_request(self, payload, **kwargs):
         # type: (dict, dict) -> dict
         kwargs.setdefault('headers', {})
         for key, value in iteritems(self.DEFAULT_HEADERS):
             kwargs['headers'].setdefault(key, value)
 
-        response = self._send_http_request(
+        response = await self._send_http_request(
             # Use a custom JSON encoder that knows how to convert Tryte
             # values.
             payload=JsonEncoder().encode(payload),
@@ -308,7 +310,7 @@ class HttpAdapter(BaseAdapter):
 
         return self._interpret_response(response, payload, {codes['ok']})
 
-    def _send_http_request(self, url, payload, method='post', **kwargs):
+    async def _send_http_request(self, url, payload, method='post', **kwargs):
         # type: (Text, Optional[Text], Text, dict) -> Response
         """
         Sends the actual HTTP request.
@@ -341,7 +343,7 @@ class HttpAdapter(BaseAdapter):
             },
         )
 
-        response = request(method=method, url=url, data=payload, **kwargs)
+        response = await requests_async.request(method=method, url=url, data=payload, **kwargs)
 
         self._log(
             level=DEBUG,
